@@ -7,7 +7,7 @@ import Repository from '../../services/Repository.js';
 import ClayCard from '@clayui/card';
 import { spritemap } from '../../constants';
 import { ClayIcon } from '@clayui/icon';
-import ClayForm, { ClayInput } from '@clayui/form';
+import ClayForm, { ClaySelect } from '@clayui/form';
 
 function handleAddGame(e) {
 
@@ -15,6 +15,29 @@ function handleAddGame(e) {
 
 export default function GameListView() {
     const repo = Repository.getInstance();
+
+    const [game, setGame] = useState({
+        name: 'x vs x',
+        description: 'After lunch game...',
+        leftPlayer: 0,
+        rightPlayer: 0,
+        leftScore: 0,
+        rightScore: 0,
+        leftWins: 0,
+        rightWins: 0
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setGame(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    }
+
+    const handleAddGame = () => {
+        console.log(game)
+    }
 
     return (
         <div className="row">
@@ -34,15 +57,27 @@ export default function GameListView() {
                 <ClayCard>
                     <ClayCard.Body>
                     <ClayForm>
-                        <ClayForm.Group className="form-group-sm">
-                            <label htmlFor="basicInput">Left Player</label>
-                            <ClayInput placeholder="Ardi" type="text"/>
-                        </ClayForm.Group>
-                        <ClayForm.Group className="form-group-sm">
-                            <label htmlFor="basicInput">Right Player</label>
-                            <ClayInput placeholder="Aladdin" type="text" />
-                        </ClayForm.Group>
-                        <ClayButton onClick={handleAddGame} className="col-md-12">Create Game</ClayButton>
+                        <ClaySelect name="leftPlayer" onChange={handleChange}>
+                            {repo.players.map(player => (
+                                <ClaySelect.Option
+                                    key={player.id}
+                                    label={player.name}
+                                    value={player.id}
+                                />
+                            ))}
+                        </ClaySelect>
+                        <br />
+                        <ClaySelect name="rightPlayer" onChange={handleChange}>
+                            {repo.players.map(player => (
+                                <ClaySelect.Option
+                                    key={player.id}
+                                    label={player.name}
+                                    value={player.id}
+                                />
+                            ))}
+                        </ClaySelect>
+                        <br />
+                        <ClayButton onClick={handleAddGame} className="col-md-12">Start Game</ClayButton>
                     </ClayForm>
                     </ClayCard.Body>
                 </ClayCard>
