@@ -12,7 +12,7 @@ export default function TennisHeader() {
                 </ClayNav.Link>
             </ClayNav.Item>
             <ClayNav.Item>
-                <ClayNav.Link href="#">{"Tournaments"}</ClayNav.Link>
+                <ClayNav.Link href="#">{"Games"}</ClayNav.Link>
             </ClayNav.Item>
         </ClayNav>
     );

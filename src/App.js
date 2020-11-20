@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import TennisHeader from './components/tennis-header/TennisHeader';
 import PlayerListView from './views/player-list/PlayerListView';
 import GameListView from './views/games-list/GamesListView';
+import GameDetailView from './views/game-detail/GameDetailView';
 
 import './App.css';
 
@@ -12,7 +13,7 @@ function App() {
   return (
     <div className="container">
       <TennisHeader />
-      <GameListView />
+      <GameDetailView gameId={0}/>
     </div>
   );
 }
