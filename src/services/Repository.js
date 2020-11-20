@@ -43,16 +43,12 @@ export default class Repository {
             {
                 name: 'Ardi vs. Aladdin',
                 description: 'After lunch game...',
-                leftPlayers: [
-                    0
-                ],
-                rightPlayers: [
-                    1
-                ],
+                leftPlayer: this.getPlayerByName('Ardi'),
+                rightPlayer: this.getPlayerByName('Aladdin'),
                 leftScore: 0,
-                rightScore: 1,
+                rightScore: 0,
                 leftWins: 0,
-                rightWins: 1
+                rightWins: 0
             }
         ];
     }
@@ -60,6 +56,16 @@ export default class Repository {
     getPlayer(id) {
         for(const player of this.players) {
             if (player.id == id) {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    getPlayerByName(name) {
+        for(const player of this.players) {
+            if (player.name == name) {
                 return player;
             }
         }

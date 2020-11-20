@@ -23,7 +23,7 @@ export default function GameListView() {
                     <div className="col-md-4">
                         <ClayCardWithUser
                             name={game.name}
-                            description={game.description}
+                            description={`Score: ${game.leftScore}:${game.rightScore} Wins: ${game.leftWins}:${game.rightWins}`}
                             userImageSrc={game.image}
                         />
                     </div>
@@ -35,18 +35,14 @@ export default function GameListView() {
                     <ClayCard.Body>
                     <ClayForm>
                         <ClayForm.Group className="form-group-sm">
-                            <label htmlFor="basicInput">Name</label>
-                            <ClayInput placeholder="Name" type="text"/>
+                            <label htmlFor="basicInput">Left Player</label>
+                            <ClayInput placeholder="Ardi" type="text"/>
                         </ClayForm.Group>
                         <ClayForm.Group className="form-group-sm">
-                            <label htmlFor="basicInput">Job Title</label>
-                            <ClayInput placeholder="Job Title" type="text" />
+                            <label htmlFor="basicInput">Right Player</label>
+                            <ClayInput placeholder="Aladdin" type="text" />
                         </ClayForm.Group>
-                        <ClayForm.Group className="form-group-sm">
-                            <label htmlFor="basicInput">Image</label>
-                            <ClayInput placeholder="http://nope.png" type="text"/>
-                        </ClayForm.Group>
-                        <ClayButton onClick={handleAddGame} className="col-md-12">Add Player</ClayButton>
+                        <ClayButton onClick={handleAddGame} className="col-md-12">Create Game</ClayButton>
                     </ClayForm>
                     </ClayCard.Body>
                 </ClayCard>
