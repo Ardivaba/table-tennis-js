@@ -1,11 +1,9 @@
-import { ClayVerticalNav } from '@clayui/nav';
 import React, { useState } from 'react';
 
 import ClayButton from '@clayui/button';
-import ClayCardWithInfo, { ClayCardWithUser, ClayCardWithNavigation } from '@clayui/card';
+import { ClayCardWithUser } from '@clayui/card';
 import Repository from '../../services/Repository.js';
 import ClayCard from '@clayui/card';
-import { spritemap } from '../../constants';
 import { ClayIcon } from '@clayui/icon';
 import ClayForm, { ClayInput } from '@clayui/form';
 
@@ -16,15 +14,23 @@ function handleAddPlayer(e) {
 export default function PlayerListView() {
     const repo = Repository.getInstance();
 
-    const [name, setName] = useState('');
-    const [jobTitle, setJobTitle] = useState('');
-    const [image, setImage] = useState('');
-
-    const player = useState({
+    const [player, setPlayer] = useState({
         name: '',
         jobTitle: '',
         image: ''
     });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPlayer(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+
+    const handleAddPlayer = () => {
+        console.log(player)
+    }
 
     return (
         <div className="row">
@@ -46,15 +52,15 @@ export default function PlayerListView() {
                     <ClayForm>
                         <ClayForm.Group className="form-group-sm">
                             <label htmlFor="basicInput">Name</label>
-                            <ClayInput placeholder="Name" type="text"/>
+                            <ClayInput name="name" placeholder="Name" type="text" onChange={handleChange}/>
                         </ClayForm.Group>
                         <ClayForm.Group className="form-group-sm">
                             <label htmlFor="basicInput">Job Title</label>
-                            <ClayInput placeholder="Job Title" type="text" />
+                            <ClayInput name="jobTitle" placeholder="Job Title" type="text"onChange={handleChange}/>
                         </ClayForm.Group>
                         <ClayForm.Group className="form-group-sm">
                             <label htmlFor="basicInput">Image</label>
-                            <ClayInput placeholder="http://nope.png" type="text"/>
+                            <ClayInput name="image" placeholder="http://nope.png" type="text" onChange={handleChange}/>
                         </ClayForm.Group>
                         <ClayButton onClick={handleAddPlayer} className="col-md-12">Add Player</ClayButton>
                     </ClayForm>
