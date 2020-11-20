@@ -1,5 +1,6 @@
 import { ClayVerticalNav } from '@clayui/nav';
 import React, { useState } from 'react';
+import queryString from 'query-string';
 
 import ClayButton from '@clayui/button';
 import ClayCardWithInfo, { ClayCardWithUser, ClayCardWithNavigation } from '@clayui/card';
@@ -85,9 +86,11 @@ function addRightPoint(gameState, setGameState) {
 }
 
 export default function GameDetailView(props) {
+    const gameId = parseInt(window.location.pathname.split('/')[2]);
+
     const repo = Repository.getInstance();
 
-    const game = repo.getGame(props.gameId);
+    const game = repo.getGame(gameId);
 
     const leftPlayer = repo.getPlayer(game.leftPlayer);
     const rightPlayer = repo.getPlayer(game.rightPlayer);
