@@ -9,6 +9,10 @@ import { spritemap } from '../../constants';
 import { ClayIcon } from '@clayui/icon';
 import ClayForm, { ClayInput } from '@clayui/form';
 
+function handleAddPlayer(e) {
+
+}
+
 export default function PlayerListView() {
     const repo = Repository.getInstance();
 
@@ -42,7 +46,7 @@ export default function PlayerListView() {
                     <ClayForm>
                         <ClayForm.Group className="form-group-sm">
                             <label htmlFor="basicInput">Name</label>
-                            <ClayInput placeholder="Name" type="text"  onChange={player.name = event}  />
+                            <ClayInput placeholder="Name" type="text"/>
                         </ClayForm.Group>
                         <ClayForm.Group className="form-group-sm">
                             <label htmlFor="basicInput">Job Title</label>
