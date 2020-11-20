@@ -50,7 +50,8 @@ export default class Repository {
                 rightScore: 0,
                 leftWins: 0,
                 rightWins: 0,
-                leftIsServing: true
+                leftIsServing: true,
+                serveCount: 0
             }
         ];
     }

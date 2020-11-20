@@ -9,26 +9,79 @@ import { spritemap } from '../../constants';
 import { ClayIcon } from '@clayui/icon';
 import ClayForm, { ClayInput } from '@clayui/form';
 
-function addLeftPoint(game, setGame) {
+function addLeftPoint(gameState, setGameState) {
     const repo = Repository.getInstance();
 
-    setGame(prevGame => ({
+    setGameState(prevGame => ({
         ...prevGame,
         leftScore: prevGame.leftScore + 1
     }));
 
-    repo.storeGame(game.id, game);
+    if (gameState.leftScore == 10) {
+        setGameState(prevGame => ({
+            ...prevGame,
+            rightScore: 0,
+            leftScore: 0,
+            leftWins: prevGame.leftWins + 1
+        }));
+    }
+
+    setGameState(prevGame => ({
+        ...prevGame,
+        serveCount: prevGame.serveCount + 1
+    }));
+
+    if (gameState.serveCount == 2) {
+        setGameState(prevGame => ({
+            ...prevGame,
+            serveCount: 0,
+            leftIsServing: !prevGame.leftIsServing
+        }));
+    }
+
+    repo.storeGame(gameState.id, gameState);
 }
 
-function addRightPoint(game, setGame) {
+function addRightPoint(gameState, setGameState) {
     const repo = Repository.getInstance();
 
-    setGame(prevGame => ({
+    setGameState(prevGame => ({
         ...prevGame,
         rightScore: prevGame.rightScore + 1
     }));
 
-    repo.storeGame(game.id, game);
+    if (gameState.rightScore == 10) {
+        setGameState(prevGame => ({
+            ...prevGame,
+            rightScore: 0,
+            leftScore: 0,
+            rightWins: prevGame.rightWins + 1
+        }));
+    }
+
+    if (gameState.rightScore == 10) {
+        setGameState(prevGame => ({
+            ...prevGame,
+            rightScore: 0,
+            leftScore: 0,
+            rightWins: prevGame.rightWins + 1
+        }));
+    }
+
+    setGameState(prevGame => ({
+        ...prevGame,
+        serveCount: prevGame.serveCount + 1
+    }));
+
+    if (gameState.serveCount == 2) {
+        setGameState(prevGame => ({
+            ...prevGame,
+            serveCount: 0,
+            leftIsServing: !prevGame.leftIsServing
+        }));
+    }
+
+    repo.storeGame(gameState.id, gameState);
 }
 
 export default function GameDetailView(props) {
@@ -46,10 +99,11 @@ export default function GameDetailView(props) {
         leftPlayer: game.leftPlayer,
         rightPlayer: game.rightPlayer,
         leftScore: game.leftScore,
-        rightScore: game.righScore,
+        rightScore: game.rightScore,
         leftWins: game.leftWins,
         rightWins: game.rightWins,
-        leftIsServing: game.leftIsServing
+        leftIsServing: game.leftIsServing,
+        serveCount: game.serveCount
     });
 
     return (
@@ -70,6 +124,11 @@ export default function GameDetailView(props) {
                         Wins: {game.leftWins}
                     </ClayCard.Body>
                 </ClayCard>
+                { !game.leftIsServing ? <ClayCard>
+                    <ClayCard.Body>
+                        Serving
+                    </ClayCard.Body>
+                </ClayCard> : null }
                 <ClayButton onClick={() => { addLeftPoint(gameState, setGameState) }}>Add point</ClayButton>
             </div>
             <div className="col-md-6">
@@ -88,6 +147,11 @@ export default function GameDetailView(props) {
                         Wins: {game.rightWins}
                     </ClayCard.Body>
                 </ClayCard>
+                { game.leftIsServing ? <ClayCard>
+                    <ClayCard.Body>
+                        Serving
+                    </ClayCard.Body>
+                </ClayCard> : null }
                 <ClayButton onClick={() => { addRightPoint(gameState, setGameState) }} className="float-right">Add point</ClayButton>
             </div>
         </div>

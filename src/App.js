@@ -23,7 +23,7 @@ function App() {
                     <PlayerDetailsView />
                 </Route>
                 <Route path="/game-details">
-                    <GameDetailView />
+                    <GameDetailView gameId={0} />
                 </Route>
                 <Route path="/">
                     <GameListView />
