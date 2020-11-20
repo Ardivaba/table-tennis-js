@@ -1,7 +1,8 @@
-import logo from './logo.svg';
-
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TennisHeader from './components/tennis-header/TennisHeader';
 import PlayerListView from './views/player-list/PlayerListView';
+import PlayerDetailsView from './views/player-details/PlayerDetailsView';
 import GameListView from './views/games-list/GamesListView';
 import GameDetailView from './views/game-detail/GameDetailView';
 
@@ -12,8 +13,23 @@ import "@clayui/css/lib/css/atlas.css";
 function App() {
   return (
     <div className="container">
-      <TennisHeader />
-      <GameDetailView gameId={0}/>
+        <TennisHeader />
+        <Router>
+            <Switch>
+                <Route path="/players">
+                    <PlayerListView />
+                </Route>
+                <Route path="/player-details">
+                    <PlayerDetailsView />
+                </Route>
+                <Route path="/games">
+                    <GameListView />
+                </Route>
+                <Route path="/game-details">
+                    <GameDetailView />
+                </Route>
+            </Switch>
+        </Router>
     </div>
   );
 }
