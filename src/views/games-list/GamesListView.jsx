@@ -48,6 +48,7 @@ export default function GameListView() {
                             name={game.name}
                             description={`Score: ${game.leftScore}:${game.rightScore} Wins: ${game.leftWins}:${game.rightWins}`}
                             userImageSrc={game.image}
+                            href={"games/" + game.id}
                         />
                     </div>
                 );

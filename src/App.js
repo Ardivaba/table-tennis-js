@@ -22,8 +22,8 @@ function App() {
                 <Route path="/player-details">
                     <PlayerDetailsView />
                 </Route>
-                <Route path="/game-details">
-                    <GameDetailView />
+                <Route path="/games/:gameId">
+                    <GameDetailView/>
                 </Route>
                 <Route path="/">
                     <GameListView />
