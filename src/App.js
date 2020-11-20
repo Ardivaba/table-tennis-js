@@ -22,11 +22,11 @@ function App() {
                 <Route path="/player-details">
                     <PlayerDetailsView />
                 </Route>
-                <Route path="/games">
-                    <GameListView />
-                </Route>
                 <Route path="/game-details">
                     <GameDetailView />
+                </Route>
+                <Route path="/">
+                    <GameListView />
                 </Route>
             </Switch>
         </Router>

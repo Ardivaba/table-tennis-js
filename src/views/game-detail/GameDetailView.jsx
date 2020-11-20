@@ -14,7 +14,7 @@ function addLeftPoint(game, setGame) {
 
     setGame(prevGame => ({
         ...prevGame,
-        [leftScore]: prevGame.leftScore + 1
+        leftScore: prevGame.leftScore + 1
     }));
 
     repo.storeGame(game.id, game);
@@ -25,7 +25,7 @@ function addRightPoint(game, setGame) {
 
     setGame(prevGame => ({
         ...prevGame,
-        [rightScore]: prevGame.rightScore + 1
+        rightScore: prevGame.rightScore + 1
     }));
 
     repo.storeGame(game.id, game);
@@ -39,7 +39,18 @@ export default function GameDetailView(props) {
     const leftPlayer = repo.getPlayer(game.leftPlayer);
     const rightPlayer = repo.getPlayer(game.rightPlayer);
 
-    const [game, setGame] = useState(game);
+    const [gameState, setGameState] = useState({
+        id: game.id,
+        name: game.name,
+        description: game.description,
+        leftPlayer: game.leftPlayer,
+        rightPlayer: game.rightPlayer,
+        leftScore: game.leftScore,
+        rightScore: game.righScore,
+        leftWins: game.leftWins,
+        rightWins: game.rightWins,
+        leftIsServing: game.leftIsServing
+    });
 
     return (
         <div className="row">
@@ -51,15 +62,15 @@ export default function GameDetailView(props) {
                 />
                 <ClayCard>
                     <ClayCard.Body>
-                        Score:
+                        Score: {game.leftScore}
                     </ClayCard.Body>
                 </ClayCard>
                 <ClayCard>
                     <ClayCard.Body>
-                        Wins:
+                        Wins: {game.leftWins}
                     </ClayCard.Body>
                 </ClayCard>
-                <ClayButton onClick={() => { addLeftPoint(game, setGame) }}>Add point</ClayButton>
+                <ClayButton onClick={() => { addLeftPoint(gameState, setGameState) }}>Add point</ClayButton>
             </div>
             <div className="col-md-6">
                 <ClayCardWithUser
@@ -69,15 +80,15 @@ export default function GameDetailView(props) {
                 />
                 <ClayCard>
                     <ClayCard.Body>
-                        Score:
+                        Score: {game.rightScore}
                     </ClayCard.Body>
                 </ClayCard>
                 <ClayCard>
                     <ClayCard.Body>
-                        Wins:
+                        Wins: {game.rightWins}
                     </ClayCard.Body>
                 </ClayCard>
-                <ClayButton onClick={() => { addRightPoint(game, setGame) }} className="float-right">Add point</ClayButton>
+                <ClayButton onClick={() => { addRightPoint(gameState, setGameState) }} className="float-right">Add point</ClayButton>
             </div>
         </div>
     );
