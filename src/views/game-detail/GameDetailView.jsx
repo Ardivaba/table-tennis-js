@@ -9,8 +9,26 @@ import { spritemap } from '../../constants';
 import { ClayIcon } from '@clayui/icon';
 import ClayForm, { ClayInput } from '@clayui/form';
 
-function handleAddGame(e) {
+function addLeftPoint(game, setGame) {
+    const repo = Repository.getInstance();
 
+    setGame(prevGame => ({
+        ...prevGame,
+        [leftScore]: prevGame.leftScore + 1
+    }));
+
+    repo.storeGame(game.id, game);
+}
+
+function addRightPoint(game, setGame) {
+    const repo = Repository.getInstance();
+
+    setGame(prevGame => ({
+        ...prevGame,
+        [rightScore]: prevGame.rightScore + 1
+    }));
+
+    repo.storeGame(game.id, game);
 }
 
 export default function GameDetailView(props) {
@@ -20,6 +38,8 @@ export default function GameDetailView(props) {
 
     const leftPlayer = repo.getPlayer(game.leftPlayer);
     const rightPlayer = repo.getPlayer(game.rightPlayer);
+
+    const [game, setGame] = useState(game);
 
     return (
         <div className="row">
@@ -39,7 +59,7 @@ export default function GameDetailView(props) {
                         Wins:
                     </ClayCard.Body>
                 </ClayCard>
-                <ClayButton>Add point</ClayButton>
+                <ClayButton onClick={() => { addLeftPoint(game, setGame) }}>Add point</ClayButton>
             </div>
             <div className="col-md-6">
                 <ClayCardWithUser
@@ -57,7 +77,7 @@ export default function GameDetailView(props) {
                         Wins:
                     </ClayCard.Body>
                 </ClayCard>
-                <ClayButton className="float-right">Add point</ClayButton>
+                <ClayButton onClick={() => { addRightPoint(game, setGame) }} className="float-right">Add point</ClayButton>
             </div>
         </div>
     );

@@ -93,6 +93,14 @@ export default class Repository {
         return null;
     }
 
+    storeGame(gameId, gameState) {
+        for(const i in this.games) {
+            if (this.games[i].id == gameId) {
+                this.games[i] = gameState;
+            }
+        }
+    }
+
     static getInstance() {
         if (this.instance == null) {
             this.instance = new Repository();
